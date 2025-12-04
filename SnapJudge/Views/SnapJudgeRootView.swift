@@ -39,19 +39,6 @@ struct SnapJudgeRootView: View {
 // MARK: - Sections
 
 private extension SnapJudgeRootView {
-    var headerSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Rate any idea in seconds.")
-                .font(.title)
-                .fontWeight(.bold)
-            
-            Text("Upload a screenshot or photo of your idea, UI, or notes. SnapJudge will score feasibility, cost, and give you a Go / No-Go verdict.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-    
     var imagePickerSection: some View {
         VStack(spacing: 12) {
             PhotosPicker(
