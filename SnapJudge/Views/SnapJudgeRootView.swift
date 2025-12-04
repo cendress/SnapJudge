@@ -16,7 +16,7 @@ struct SnapJudgeRootView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    headerSection
+                    SnapJudgeRootHeaderView()
                     
                     imagePickerSection
                     
