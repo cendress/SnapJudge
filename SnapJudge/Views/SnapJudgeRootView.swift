@@ -6,11 +6,13 @@
 //
 
 import PhotosUI
+import UIKit
 import SwiftUI
 
 struct SnapJudgeRootView: View {
     @StateObject private var viewModel = SnapJudgeViewModel()
     @State private var selectedPhotoItem: PhotosPickerItem?
+    @State private var hasSelectedImage: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -49,7 +51,7 @@ private extension SnapJudgeRootView {
                 HStack {
                     Image(systemName: "photo.on.rectangle.angled")
                         .imageScale(.large)
-                    Text(viewModel.selectedImage == nil ? "Select Screenshot or Photo" : "Change Image")
+                    Text(hasSelectedImage ? "Change Image" : "Select Screenshot or Photo")
                         .fontWeight(.semibold)
                     Spacer()
                 }
@@ -57,7 +59,7 @@ private extension SnapJudgeRootView {
                 .background(RoundedRectangle(cornerRadius: 16).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [6])))
             }
             
-            if let uiImage = viewModel.selectedImage {
+            if hasSelectedImage, let uiImage = viewModel.selectedImage {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
@@ -71,10 +73,17 @@ private extension SnapJudgeRootView {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
-        .onChange(of: selectedPhotoItem) { newItem in
+        .onChange(of: selectedPhotoItem) { oldItem, newItem in
             if let item = newItem {
                 Task {
                     await loadImage(from: item)
+                }
+            } else {
+                Task {
+                    await MainActor.run {
+                        viewModel.selectedImage = nil
+                        hasSelectedImage = false
+                    }
                 }
             }
         }
@@ -98,7 +107,16 @@ private extension SnapJudgeRootView {
         do {
             if let data = try await item.loadTransferable(type: Data.self),
                let uiImage = UIImage(data: data) {
-                viewModel.selectedImage = uiImage
+                
+                await MainActor.run {
+                    viewModel.selectedImage = uiImage
+                    hasSelectedImage = true
+                }
+            } else {
+                await MainActor.run {
+                    viewModel.selectedImage = nil
+                    hasSelectedImage = false
+                }
             }
         } catch {
             print("Failed to load image: \(error)")
