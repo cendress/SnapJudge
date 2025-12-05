@@ -13,18 +13,24 @@ final class SnapJudgeViewModel: ObservableObject {
     @Published var selectedImage: UIImage?
     @Published var analysisResult: AnalysisResult?
     @Published var isAnalyzing: Bool = false
+    @Published var errorMessage: String?
     
-    // Later this will trigger a real Vision model + LLM pipeline
-    // For Step 1, we just simulate a delay and return mock data
-    func runMockAnalysis() {
-        guard selectedImage != nil else { return }
+    func runAnalysis() {
+        guard let image = selectedImage else { return }
         
         isAnalyzing = true
         analysisResult = nil
+        errorMessage = nil
         
-        // Simulate "calling AI" so the UX feels real
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.analysisResult = .mock
+        Task {
+            do {
+                let result = try await OpenAIClient.shared.analyzeIdea(from: image)
+                self.analysisResult = result
+            } catch {
+                print("Analysis failed: \(error)")
+                self.errorMessage = "Couldn't analyze this image. \(error.localizedDescription)"
+            }
+            
             self.isAnalyzing = false
         }
     }
