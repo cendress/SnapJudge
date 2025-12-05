@@ -24,6 +24,10 @@ struct SnapJudgeRootView: View {
                     
                     analyzeButton
                     
+                    if let error = viewModel.errorMessage {
+//                        ErrorBannerView(message: error)
+                    }
+                    
                     if let result = viewModel.analysisResult {
                         AnalysisResultCard(result: result)
                     } else {
