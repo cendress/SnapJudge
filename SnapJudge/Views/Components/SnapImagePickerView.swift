@@ -35,6 +35,7 @@ struct SnapImagePickerView: View {
                     RoundedRectangle(cornerRadius: 16)
                         .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [6]))
                 )
+                .foregroundStyle(Color("YellowColor"))
             }
             
             if hasSelectedImage, let uiImage = viewModel.selectedImage {

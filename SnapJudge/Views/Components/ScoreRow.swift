@@ -23,6 +23,7 @@ struct ScoreRow: View {
             }
             
             ProgressView(value: progress)
+                .tint(Color("YellowColor"))
         }
     }
 }

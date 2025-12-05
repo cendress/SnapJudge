@@ -23,14 +23,16 @@ struct PrimaryButton: View {
                     ProgressView()
                 } else {
                     Image(systemName: "sparkles")
+                        .foregroundStyle(Color("GrayColor"))
                 }
                 
                 Text(title)
                     .fontWeight(.semibold)
+                    .foregroundStyle(Color("GrayColor"))
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(isEnabled ? Color.accentColor : Color.gray.opacity(0.3))
+            .background(isEnabled ? Color("YellowColor") : Color.gray.opacity(0.3))
             .foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 16))
         }
