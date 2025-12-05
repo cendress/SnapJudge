@@ -23,12 +23,12 @@ struct PrimaryButton: View {
                     ProgressView()
                 } else {
                     Image(systemName: "sparkles")
-                        .foregroundStyle(Color("GrayColor"))
+                        .foregroundStyle(.black)
                 }
                 
                 Text(title)
                     .fontWeight(.semibold)
-                    .foregroundStyle(Color("GrayColor"))
+                    .foregroundStyle(.black)
             }
             .frame(maxWidth: .infinity)
             .padding()
