@@ -41,6 +41,7 @@ struct SnapJudgeRootView: View {
                 .padding()
             }
             .navigationTitle("SnapJudge")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
