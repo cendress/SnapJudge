@@ -33,7 +33,6 @@ struct SnapJudgeRootView: View {
                 .padding()
             }
             .navigationTitle("SnapJudge")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -269,17 +268,7 @@ struct PlaceholderResultCard: View {
     }
 }
 
-// MARK: - Previews
-
-struct SnapJudgeRootView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        
-        AnalysisResultCard(result: .mock)
-            .padding()
-            .previewLayout(.sizeThatFits)
-    }
-}
+// MARK: - Preview
 
 #Preview {
     SnapJudgeRootView()
