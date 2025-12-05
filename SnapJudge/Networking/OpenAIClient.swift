@@ -53,7 +53,7 @@ final class OpenAIClient {
     private init() {}
     
     func analyzeIdea(from image: UIImage) async throws -> AnalysisResult {
-        guard !apiKey.isEmpty, apiKey != Secrets.openAIKey else {
+        guard !apiKey.isEmpty else {
             throw OpenAIClientError.missingAPIKey
         }
         
