@@ -94,7 +94,7 @@ private extension SnapJudgeRootView {
             isLoading: viewModel.isAnalyzing,
             isEnabled: viewModel.canAnalyze
         ) {
-            viewModel.runMockAnalysis()
+            viewModel.runAnalysis()
         }
     }
 }
